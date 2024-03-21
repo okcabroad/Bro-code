@@ -1,12 +1,12 @@
 // Random Password generator 
 const passwordBox = document.getElementById('passwordBox');
 const passwordLength = 12;
-const includelowercase = false ;
-const includeuppercase = true;
-const includeNumbers = true;
-const includeSymbols = true;
 
-function generatePassword(passwordLength, includelowercase, includeuppercase, includeNumbers, includeSymbols) {
+function generatePassword() {
+    let includelowercase = document.getElementById('lowercase').checked;
+    let includeuppercase = document.getElementById('uppercase').checked;
+    let includeNumbers = document.getElementById('numbers').checked;
+    let includeSymbols = document.getElementById('symbols').checked;
 
     const lowerchars = 'abcdefghijklmnopqrstuvwxyz';
     const upperchars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -28,8 +28,7 @@ function generatePassword(passwordLength, includelowercase, includeuppercase, in
     return password;
 }
 
-const password = generatePassword(passwordLength, includelowercase, includeuppercase, includeNumbers, includeSymbols);
-console.log(`Your new password is: ${password}`);
-console.log('Hello');
-
- passwordBox.innerHTML = `Your new password is: ${password}`
+document.getElementById('generateButton').addEventListener('click', function() {
+    const password = generatePassword();
+    passwordBox.innerHTML = `Your new password is: ${password}`
+});

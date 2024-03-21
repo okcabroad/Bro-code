@@ -6,8 +6,72 @@
     <title>Password Generator</title>
 </head>
 <body>
-    <p id="passwordBox">password</p>
+   <div>
+    <h1>Password Generator</h1>
+    <div id="checkboxes">
+        <input type="checkbox" name="includelowercase" id="lowercase">
+        <label for="lowercase">Include Lowercase?</label>
+        <br>
+        <input type="checkbox" name="includeuppercase" id="uppercase">
+        <label for="uppercase">Include Uppercase?</label>
+        <br>
+        <input type="checkbox" name="includeNumbers" id="numbers">
+        <label for="numbers">Include Numbers?</label>
+        <br>
+        <input type="checkbox" name="includeSymbols" id="symbols">
+        <label for="symbols">Include Symbols?</label>
+        <br>
+        <br>
+        <button id="generateButton">Generate Password</button>
+    </div>
+
+    
+    <p id="passwordBox">Your password will appear here.</p>
+   </div>
 
     <script src="random.js"></script>
+
+    <script>
+        // Random Password generator 
+        const passwordBox = document.getElementById('passwordBox');
+        const passwordLength = 12;
+
+        function generatePassword() {
+            let includelowercase = document.getElementById('lowercase').checked;
+            let includeuppercase = document.getElementById('uppercase').checked;
+            let includeNumbers = document.getElementById('numbers').checked;
+            let includeSymbols = document.getElementById('symbols').checked;
+
+            const lowerchars = 'abcdefghijklmnopqrstuvwxyz';
+            const upperchars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const numbers = '0123456789';
+            const symbols = '!@#$%^&*()_+';
+
+            let charSet = '';
+            let password = '';
+
+            charSet += (includelowercase) ? lowerchars : '';
+            charSet += (includeuppercase) ? upperchars : '';
+            charSet += (includeNumbers) ? numbers : '';
+            charSet += (includeSymbols) ? symbols : '';
+
+            for (let i = 0; i < passwordLength; i++) {
+                let randomNum = Math.floor(Math.random() * charSet.length);
+                password += charSet[randomNum];
+            }
+            return password;
+        }
+
+        document.getElementById('generateButton').addEventListener('click', function() {
+            const password = generatePassword();
+            passwordBox.innerHTML = `Your new password is: ${password}`;
+        });
+
+        // Set initial state of checkboxes
+        document.getElementById('lowercase').checked = true;
+        document.getElementById('uppercase').checked = true;
+        document.getElementById('numbers').checked = true;
+        document.getElementById('symbols').checked = true;
+    </script>
 </body>
 </html>
